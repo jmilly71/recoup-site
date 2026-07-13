@@ -1,0 +1,98 @@
+---
+/**
+ * Fine-line peony engraving motif, used as a quiet background accent.
+ * Stroke-only, inherits currentColor; opacity comes from --botanical-opacity.
+ * Size it by styling a wrapper element in the consuming page.
+ */
+---
+
+<svg
+  class="botanical"
+  viewBox="0 0 440 600"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.2"
+  stroke-linecap="round"
+  aria-hidden="true"
+>
+  <defs>
+    <!-- Petal: base at origin, tip pointing up, softly notched -->
+    <path
+      id="rk-petal"
+      d="M 0 6 C -40 -8 -60 -44 -46 -78 C -37 -98 -16 -110 -5 -100 C -2 -95 2 -95 5 -100 C 16 -110 37 -98 46 -78 C 60 -44 40 -8 0 6 Z"
+    />
+    <!-- Engraving hatch strokes following the petal's length -->
+    <g id="rk-hatch">
+      <path d="M -18 -26 C -26 -46 -24 -66 -14 -82" stroke-width="0.75" />
+      <path d="M 0 -24 C -3 -50 -1 -72 0 -90" stroke-width="0.75" />
+      <path d="M 18 -28 C 25 -46 23 -64 14 -80" stroke-width="0.75" />
+    </g>
+    <path
+      id="rk-petal-inner"
+      d="M 0 4 C -24 -8 -34 -32 -24 -52 C -16 -68 -4 -72 0 -62 C 4 -72 16 -68 24 -52 C 34 -32 24 -8 0 4 Z"
+    />
+  </defs>
+
+  <!-- Back row of petals: hatched, slightly lighter -->
+  <g opacity="0.65">
+    <use href="#rk-petal" transform="translate(225 194) rotate(-58) scale(1.05)" />
+    <use href="#rk-hatch" transform="translate(225 194) rotate(-58) scale(1.05)" />
+    <use href="#rk-petal" transform="translate(225 188) rotate(-19) scale(1.18)" />
+    <use href="#rk-hatch" transform="translate(225 188) rotate(-19) scale(1.18)" />
+    <use href="#rk-petal" transform="translate(225 188) rotate(21) scale(1.14)" />
+    <use href="#rk-hatch" transform="translate(225 188) rotate(21) scale(1.14)" />
+    <use href="#rk-petal" transform="translate(225 194) rotate(60) scale(1.02)" />
+    <use href="#rk-hatch" transform="translate(225 194) rotate(60) scale(1.02)" />
+  </g>
+
+  <!-- Front cup of petals: clean outlines -->
+  <use href="#rk-petal" transform="translate(225 212) rotate(-66) scale(0.78)" />
+  <use href="#rk-petal" transform="translate(225 212) rotate(-33) scale(0.98)" />
+  <use href="#rk-petal" transform="translate(225 210) rotate(2) scale(0.94)" />
+  <use href="#rk-petal" transform="translate(225 212) rotate(36) scale(1.0)" />
+  <use href="#rk-petal" transform="translate(225 212) rotate(68) scale(0.76)" />
+
+  <!-- Heart: inner petal and stamens -->
+  <use href="#rk-petal-inner" transform="translate(225 200) rotate(-6) scale(0.6)" />
+  <path d="M 220 172 C 217 163 219 154 224 147" stroke-width="0.8" />
+  <path d="M 227 172 C 227 164 229 157 233 151" stroke-width="0.8" />
+  <path d="M 214 174 C 210 168 208 161 208 154" stroke-width="0.8" />
+
+  <!-- Calyx -->
+  <path d="M 213 214 C 206 222 202 231 203 240" stroke-width="1" />
+  <path d="M 237 214 C 244 222 248 231 247 240" stroke-width="1" />
+
+  <!-- Stem -->
+  <path d="M 225 216 C 220 282 232 342 220 402 C 210 454 200 512 196 572" stroke-width="1.5" />
+
+  <!-- Left leaf -->
+  <path d="M 214 334 C 184 322 148 332 126 362 C 154 374 192 362 214 334 Z" />
+  <path d="M 210 336 C 180 342 152 350 132 360" stroke-width="0.8" />
+  <path d="M 192 340 C 187 346 183 351 181 357" stroke-width="0.7" />
+  <path d="M 170 346 C 166 351 163 355 161 360" stroke-width="0.7" />
+
+  <!-- Right leaf -->
+  <path d="M 228 424 C 258 410 294 418 316 448 C 288 462 250 450 228 424 Z" />
+  <path d="M 232 426 C 262 432 288 440 310 448" stroke-width="0.8" />
+  <path d="M 256 430 C 260 435 263 440 265 446" stroke-width="0.7" />
+  <path d="M 280 436 C 284 441 287 445 289 450" stroke-width="0.7" />
+
+  <!-- Side branch with bud -->
+  <path d="M 222 302 C 252 318 276 336 288 362" stroke-width="1.1" />
+  <path d="M 288 346 C 280 354 276 364 280 373 C 284 381 292 381 296 373 C 300 364 296 354 288 346 Z" />
+  <path d="M 288 350 C 286 358 286 366 289 373" stroke-width="0.75" />
+  <path d="M 281 372 C 276 379 273 386 272 393" stroke-width="0.9" />
+  <path d="M 295 372 C 300 379 303 386 304 393" stroke-width="0.9" />
+</svg>
+
+<style>
+  .botanical {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--ink);
+    opacity: var(--botanical-opacity);
+    pointer-events: none;
+    user-select: none;
+  }
+</style>

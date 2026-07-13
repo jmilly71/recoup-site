@@ -1,0 +1,68 @@
+---
+import { site, isLaunched } from '../config';
+
+const onHome = Astro.url.pathname === '/';
+// Prelaunch, the pill jumps to the email capture card; launched, it goes
+// straight to the App Store. One switch (isLaunched) drives both.
+const ctaHref = isLaunched ? site.appStoreUrl! : onHome ? '#get' : '/#get';
+const ctaLabel = isLaunched ? 'Download' : 'Get notified';
+---
+
+<header>
+  <div class="wrap bar">
+    <a class="wordmark" href="/">{site.name}</a>
+    <nav aria-label="Site">
+      <a href="/support">Support</a>
+      <a href="/privacy">Privacy</a>
+      <a class="cta" href={ctaHref}>{ctaLabel}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: var(--header-h);
+  }
+
+  .wordmark {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.9rem, 3vw, 1.7rem);
+    font-size: 0.95rem;
+    font-weight: 560;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 140ms ease;
+  }
+
+  nav a:not(.cta):hover {
+    color: var(--muted);
+  }
+
+  nav .cta {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    padding: 0.52em 1.15em;
+    font-weight: 640;
+    transition: opacity 140ms ease;
+  }
+
+  nav .cta:hover {
+    opacity: 0.88;
+  }
+</style>

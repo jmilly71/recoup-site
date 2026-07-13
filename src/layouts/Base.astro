@@ -1,0 +1,71 @@
+---
+import '@fontsource-variable/hanken-grotesk';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = `${site.name} · ${site.tagline}`, description = site.description } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ecf0f5" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#12151a" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    {canonical && <link rel="canonical" href={canonical.href} />}
+    {canonical && <meta property="og:url" content={canonical.href} />}
+    {Astro.site && <meta property="og:image" content={new URL('/og.png', Astro.site).href} />}
+    {Astro.site && <meta name="twitter:card" content="summary_large_image" />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      (() => {
+        if (!('IntersectionObserver' in window)) return;
+        document.documentElement.classList.add('rv');
+        // Prose pages (Support, Privacy) reveal their flow content without
+        // needing per-element markup.
+        document
+          .querySelectorAll('.prose-page > :is(h1, h2, p, ul, details, div)')
+          .forEach((el) => el.setAttribute('data-reveal', ''));
+        const io = new IntersectionObserver(
+          (entries) => {
+            let i = 0;
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              // Items arriving in the same batch stagger in, capped so a long
+              // list never keeps the reader waiting.
+              entry.target.style.setProperty('--rv-d', `${Math.min(i++, 6) * 70}ms`);
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+        );
+        document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>

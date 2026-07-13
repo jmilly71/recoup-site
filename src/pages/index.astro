@@ -1,0 +1,928 @@
+---
+import { existsSync } from 'node:fs';
+import Base from '../layouts/Base.astro';
+import Botanical from '../components/Botanical.astro';
+import DeviceFrame from '../components/DeviceFrame.astro';
+import EmailSignup from '../components/EmailSignup.astro';
+import AppStoreBadge from '../components/AppStoreBadge.astro';
+import { launchCards, realScreens, heroScreen, site, isLaunched } from '../config';
+
+// Commissioned engravings live in public/art/. The magnolia (the CTA bloom)
+// ships as a light cut plus a white-ink dark cut; the page uses whichever
+// files exist at build time and falls back to the line-drawn peony.
+const findArt = (...names: string[]) =>
+  names.map((n) => `art/${n}`).find((p) => existsSync(`public/${p}`)) ?? null;
+const magnoliaLight = findArt('magnolia-light.png', 'magnolia.png');
+const magnoliaDark = findArt('magnolia-dark.png');
+
+// Real app screens for the carousel (committed to public/screens/, with a dark
+// cut under public/screens/dark/). The existsSync guard drops any missing file
+// rather than 404-ing; the dark cut is optional per screen.
+const screens = realScreens
+  .filter((s) => existsSync(`public/screens/${s.file}`))
+  .map((s) => ({
+    src: `/screens/${s.file}`,
+    dark: existsSync(`public/screens/dark/${s.file}`) ? `/screens/dark/${s.file}` : null,
+    alt: s.alt,
+  }));
+
+const heroDark = existsSync(`public${heroScreen.srcDark}`) ? heroScreen.srcDark : null;
+const heroSet = existsSync(`public${heroScreen.src2x}`)
+  ? `${heroScreen.src} 1x, ${heroScreen.src2x} 2x`
+  : null;
+const heroDarkSet =
+  heroDark && existsSync(`public${heroScreen.srcDark2x}`)
+    ? `${heroScreen.srcDark} 1x, ${heroScreen.srcDark2x} 2x`
+    : null;
+
+const steps = [
+  {
+    title: 'Add your cards',
+    body: 'Pick from a built-in catalog. No logins, no linking, no card numbers. Rēcoup already knows each card’s credits.',
+  },
+  {
+    title: 'Set your autopilot',
+    body: 'Mark what you’re actually enrolled in. Memberships you’re in, like DashPass or Walmart+, count automatically, and benefits you never enrolled in drop out of the math entirely.',
+  },
+  {
+    title: 'Claim and keep score',
+    body: 'Mark credits claimed as you use them. Rēcoup tracks every cadence (monthly, quarterly, semiannual, annual) against your cardmembership year, and local reminders nudge you before a credit window quietly closes.',
+  },
+];
+
+---
+
+<Base>
+  <!-- ─── Hero ──────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-stage">
+      <div class="hero-blur">
+        <p class="hero-ghost" aria-hidden="true">Rēcoup</p>
+        <div class="hero-scene">
+          <div class="hero-move">
+            <div class="hero-rise">
+              <DeviceFrame
+                src={heroScreen.src}
+                srcSet={heroSet}
+                srcDark={heroDark}
+                srcDarkSet={heroDarkSet}
+                alt={heroScreen.alt}
+                tilt="none"
+                loading="eager"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-fade" aria-hidden="true"></div>
+      <a class="scroll-cue" href="#intro" aria-label="Scroll down to introduction">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10l6 6 6-6"></path></svg>
+      </a>
+    </div>
+    <div class="hero-intro" id="intro">
+      <div class="wrap hero-intro-inner">
+        <h1>Make sure your cards pay&nbsp;you.</h1>
+        <p class="lead">
+          Your premium cards give back more in credits than they cost in fees, but only if you
+          claim them. Rēcoup tracks every one against the annual fee, so nothing slips and you
+          always know how far ahead you are.
+        </p>
+        {isLaunched ? <AppStoreBadge url={site.appStoreUrl!} /> : <EmailSignup />}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── The problem ───────────────────────────────────────────────────── -->
+  <section class="problem">
+    <div class="wrap problem-grid">
+      <h2 data-reveal>The fee posts once a year. The credits drip out all&nbsp;year.</h2>
+      <div class="problem-body">
+        <p data-reveal>
+          Premium cards justify their fees with a pile of credits: Uber Cash here, an airline
+          fee credit there, a streaming credit that quietly resets every month. Use them and the
+          card pays for itself. Forget them and the fee is just a fee.
+        </p>
+        <p data-reveal>
+          Rēcoup launches fluent in five premium cards, with every credit, every value, and
+          every cadence bundled in. Pick yours and the bookkeeping is already set up.
+        </p>
+        <p class="chips-label eyebrow" data-reveal>The launch lineup</p>
+        <ul class="chips" role="list">
+          {launchCards.map((card) => <li data-reveal>{card.name.includes('Sapphire') ? `${card.issuer} ${card.name}` : card.name}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── How it works ──────────────────────────────────────────────────── -->
+  <section class="how hairline-top">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>How it works</span>
+      <h2 data-reveal>Three steps, then it does the math.</h2>
+      <ol class="steps" role="list">
+        {
+          steps.map((step, i) => (
+            <li data-reveal>
+              <span class="step-num" aria-hidden="true">{i + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ─── Privacy story ─────────────────────────────────────────────────── -->
+  <section class="privacy hairline-top">
+    <div class="wrap privacy-grid">
+      <div class="privacy-copy">
+        <span class="eyebrow" data-reveal>Privacy</span>
+        <h2 data-reveal>Your cards are your business.</h2>
+        <p class="privacy-lead" data-reveal>
+          Rēcoup runs entirely on your iPhone. Your cards, credits, and claims live in a local
+          database on your device. There is no account to create, no server to sync with, and
+          no analytics quietly watching. If it isn&rsquo;t on your phone, it doesn&rsquo;t exist.
+        </p>
+        <dl class="facts">
+          <div data-reveal>
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7.5" y="2.5" width="9" height="19" rx="2.2"></rect><path d="M11 18.5h2"></path></svg>
+              On-device by design
+            </dt>
+            <dd>Everything is stored in a local SQLite database that never leaves your iPhone.</dd>
+          </div>
+          <div data-reveal>
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"></path><path d="M9.2 11.8l2 2 3.6-3.8"></path></svg>
+              No accounts
+            </dt>
+            <dd>Nothing to sign up for, nothing to reset, nothing to breach.</dd>
+          </div>
+          <div data-reveal>
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16"></path><path d="M10.6 5.4A10.7 10.7 0 0 1 12 5.3c5 0 8.6 3.4 10 6.7-.5 1.3-1.3 2.5-2.4 3.6M6.3 6.5C4.3 7.9 2.8 9.8 2 12c1.4 3.3 5 6.7 10 6.7 1.5 0 3-.3 4.2-.8"></path><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path></svg>
+              No analytics or trackers
+            </dt>
+            <dd>No third-party SDKs, no ads, no fingerprinting. The app phones no one.</dd>
+          </div>
+          <div data-reveal>
+            <dt>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16H6c1.2-1.4 1.8-2.8 1.8-5a4.2 4.2 0 0 1 8.4 0c0 2.2.6 3.6 1.8 5z"></path><path d="M10.5 19a1.8 1.8 0 0 0 3 0"></path></svg>
+              Local notifications
+            </dt>
+            <dd>Reminders are scheduled by iOS on your device, not pushed from a server.</dd>
+          </div>
+        </dl>
+        <p class="privacy-link" data-reveal>
+          <a href="/privacy">Read the full privacy policy (it&rsquo;s genuinely short)&nbsp;→</a>
+        </p>
+      </div>
+      <aside class="label-card" aria-label="App Store privacy label" data-reveal>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"></path><path d="M9.2 11.8l2 2 3.6-3.8"></path></svg>
+        <p class="label-title">Data Not Collected</p>
+        <p class="label-body">The developer does not collect any data from this app.</p>
+        <p class="label-src muted">App Privacy · App Store</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ─── Screens carousel ──────────────────────────────────────────────── -->
+  <section class="shots">
+    <div class="wrap">
+      <h2 data-reveal>See where every card stands.</h2>
+      <p class="shots-note muted" data-reveal>Real screens from the app, shown with demo data.</p>
+    </div>
+    <div class="carousel" tabindex="0" data-reveal role="group" aria-label="App screens, auto-scrolling. Focus or hover to pause.">
+      <div class="track">
+        <ul class="shot-list" role="list">
+          {screens.map((s) => (
+            <li class="app-shot">
+              <img class="shot-img shot-light" src={s.src} alt={s.alt} loading="eager" width="1320" height="2868" decoding="async" />
+              {s.dark && <img class="shot-img shot-dark" src={s.dark} alt="" loading="eager" width="1320" height="2868" decoding="async" />}
+            </li>
+          ))}
+        </ul>
+        <ul class="shot-list dupe" role="list" aria-hidden="true">
+          {screens.map((s) => (
+            <li class="app-shot">
+              <img class="shot-img shot-light" src={s.src} alt="" loading="eager" width="1320" height="2868" decoding="async" />
+              {s.dark && <img class="shot-img shot-dark" src={s.dark} alt="" loading="eager" width="1320" height="2868" decoding="async" />}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Get the app ───────────────────────────────────────────────────── -->
+  <section class="get" id="get">
+    <div class="wrap">
+      <div class="get-card" data-reveal>
+        <h2>Come out ahead.</h2>
+        <p class="lead">The fee is the floor, not the finish line. Claim every credit and see how far ahead you land.</p>
+        <div class="get-bloom">
+          {
+            magnoliaLight ? (
+              <>
+                <img class="bloom-art bloom-light" src={`/${magnoliaLight}`} alt="" width="1187" height="1568" loading="eager" decoding="async" />
+                {magnoliaDark && (
+                  <img class="bloom-art bloom-dark" src={`/${magnoliaDark}`} alt="" width="1187" height="1568" loading="eager" decoding="async" />
+                )}
+              </>
+            ) : (
+              <Botanical />
+            )
+          }
+          <div class="get-float">
+            <div class="get-panel">
+              {
+                isLaunched ? (
+                  <AppStoreBadge url={site.appStoreUrl!} />
+                ) : (
+                  <EmailSignup caption="Now in beta on TestFlight." />
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Scroll progress (--hp) drives hero blur/reveal; pointer x (--mx) nudges the phone.
+  // Progress comes from the hero's own rect (not window.scrollY) and the scroll
+  // listener captures, so it works even when an ancestor container scrolls.
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const hero = document.querySelector('.hero');
+  const cue = document.querySelector('.scroll-cue');
+  if (!reduce && hero) {
+    // Scroll and pointer set targets; a rAF loop eases the applied values
+    // toward them so blur, reveal, and parallax feel fluid rather than
+    // stepping with each input event.
+    const heroProgress = () =>
+      Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / (innerHeight * 0.55)));
+    let targetHp = heroProgress();
+    let targetMx = 0;
+    let hp = targetHp;
+    let mx = 0;
+    let raf = 0;
+
+    const apply = () => {
+      root.style.setProperty('--hp', hp.toFixed(4));
+      root.style.setProperty('--mx', mx.toFixed(4));
+      // Once faded, pull the cue out of the tab order so keyboard users never
+      // land on an invisible control.
+      if (cue) cue.classList.toggle('cue-gone', hp > 0.5);
+    };
+
+    const tick = () => {
+      hp += (targetHp - hp) * 0.14;
+      mx += (targetMx - mx) * 0.12;
+      if (Math.abs(targetHp - hp) < 0.001 && Math.abs(targetMx - mx) < 0.0005) {
+        hp = targetHp;
+        mx = targetMx;
+        raf = 0;
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+      apply();
+    };
+    const kick = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
+    apply();
+    addEventListener(
+      'scroll',
+      () => {
+        targetHp = heroProgress();
+        kick();
+      },
+      { passive: true, capture: true }
+    );
+    if (matchMedia('(pointer: fine)').matches) {
+      addEventListener(
+        'pointermove',
+        (e) => {
+          targetMx = e.clientX / innerWidth - 0.5;
+          kick();
+        },
+        { passive: true }
+      );
+    }
+  }
+</script>
+
+<style>
+  section {
+    padding-block: clamp(4.5rem, 9vw, 7rem);
+  }
+
+  h2 {
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+  }
+
+  .eyebrow {
+    margin-bottom: 1.1rem;
+  }
+
+  /* ─── Hero ─────────────────────────────────────────────────────────── */
+  .hero {
+    padding-block: 0;
+  }
+
+  .hero-stage {
+    position: sticky;
+    top: 0;
+    height: calc(100svh - var(--header-h));
+    overflow: hidden;
+  }
+
+  .hero-blur {
+    position: absolute;
+    inset: 0;
+    will-change: filter, opacity;
+  }
+
+  :global(html.js) .hero-blur {
+    filter: blur(calc(min(var(--hp, 0) * 1.5, 1) * 26px));
+    opacity: calc(1 - var(--hp, 0) * 0.3);
+  }
+
+  .hero-ghost {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-size: clamp(11rem, 30vw, 30rem);
+    font-weight: 720;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    color: var(--ghost-ink);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .hero-scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    perspective: 1600px;
+  }
+
+  .hero-move {
+    transform-style: preserve-3d;
+  }
+
+  /* No CSS transition here: the script lerps --mx and --hp every frame, and a
+     transition on top of that would lag and stutter. Pointer parallax is pure
+     rotation about the phone's own center axis: it never translates, so the
+     phone stays dead center horizontally no matter where the cursor rests. */
+  :global(html.js) .hero-move {
+    transform: rotateY(calc(var(--mx, 0) * -7deg));
+  }
+
+  .hero-rise {
+    width: min(39svh, 66vw);
+    margin-top: 9svh;
+  }
+
+  :global(html.js) .hero-rise {
+    animation: hero-rise 1000ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+  }
+
+  @keyframes hero-rise {
+    from {
+      transform: translateY(9svh);
+      opacity: 0;
+    }
+  }
+
+  .hero-fade {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 26svh;
+    background: linear-gradient(180deg, transparent, var(--paper) 80%);
+    pointer-events: none;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    translate: -50% 0;
+    width: 2.7rem;
+    height: 2.7rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 55%, transparent);
+    backdrop-filter: blur(6px);
+    animation: cue-bob 2.2s ease-in-out infinite;
+  }
+
+  :global(html.js) .scroll-cue {
+    opacity: calc(1 - var(--hp, 0) * 2.5);
+  }
+
+  /* Faded out: remove from tab order and hit-testing so it can't be focused
+     or clicked while invisible. */
+  .scroll-cue.cue-gone {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .scroll-cue svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  @keyframes cue-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(7px);
+    }
+  }
+
+  .hero-intro {
+    position: relative;
+    z-index: 2;
+    margin-top: -30svh;
+    padding-bottom: clamp(8rem, 16vw, 13rem);
+    text-align: center;
+  }
+
+  .hero-intro-inner {
+    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  :global(html.js) .hero-intro-inner {
+    opacity: calc(var(--hp, 0) * 2.6 - 0.05);
+    transform: translateY(calc((1 - min(var(--hp, 0) * 2.2, 1)) * 36px));
+  }
+
+  /* Keyboard users must never land in invisible content. */
+  :global(html.js) .hero-intro-inner:focus-within {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-intro h1 {
+    font-size: clamp(2.6rem, 5.4vw, 3.9rem);
+  }
+
+  .hero-intro .lead {
+    max-width: 36em;
+  }
+
+  /* ─── Problem ──────────────────────────────────────────────────────── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .problem-body > p {
+    color: var(--muted);
+    font-size: 1.125rem;
+  }
+
+  .problem-body > p + p {
+    margin-top: 1em;
+  }
+
+  .chips-label {
+    margin: 2.2rem 0 0.9rem;
+  }
+
+  .chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .chips li {
+    background: var(--surface);
+    border: 1px solid var(--hairline-soft);
+    border-radius: 999px;
+    padding: 0.42em 1em;
+    font-size: 0.9rem;
+    font-weight: 560;
+  }
+
+  .chips .more {
+    background: transparent;
+    border-style: dashed;
+    border-color: var(--hairline);
+    color: var(--muted);
+    font-weight: 480;
+  }
+
+  /* ─── How it works ─────────────────────────────────────────────────── */
+  .steps {
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    font-weight: 660;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 1.1rem;
+  }
+
+  .steps h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5em;
+  }
+
+  .steps p {
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+
+  /* ─── Privacy ──────────────────────────────────────────────────────── */
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .privacy-lead {
+    max-width: 38em;
+    color: var(--muted);
+    font-size: 1.125rem;
+    margin-top: 0.9em;
+  }
+
+  .facts {
+    margin: 2.4rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem 2.5rem;
+  }
+
+  .facts dt {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: 660;
+    margin-bottom: 0.35em;
+  }
+
+  .facts svg {
+    width: 1.25em;
+    height: 1.25em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+  }
+
+  .facts dd {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .privacy-link {
+    margin-top: 2.2rem;
+  }
+
+  .privacy-link a {
+    font-weight: 600;
+    text-decoration-color: var(--hairline);
+    text-underline-offset: 4px;
+  }
+
+  .privacy-link a:hover {
+    text-decoration-color: var(--green);
+  }
+
+  .label-card {
+    border: 1px solid var(--hairline-soft);
+    border-radius: 18px;
+    background: var(--surface);
+    padding: 2rem 1.8rem;
+    max-width: 20rem;
+    justify-self: center;
+    box-shadow: var(--shot-shadow);
+  }
+
+  .label-card svg {
+    width: 2.1rem;
+    height: 2.1rem;
+    fill: none;
+    stroke: var(--green);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    margin-bottom: 1rem;
+  }
+
+  .label-title {
+    font-size: 1.25rem;
+    font-weight: 680;
+    letter-spacing: -0.015em;
+  }
+
+  .label-body {
+    margin-top: 0.4em;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .label-src {
+    margin-top: 1.2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ─── Screens carousel ─────────────────────────────────────────────── */
+  .shots {
+    background: var(--band);
+  }
+
+  .shots h2,
+  .shots-note {
+    text-align: center;
+  }
+
+  .shots-note {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .carousel {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  .carousel:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+    animation: shots-scroll 55s linear infinite;
+  }
+
+  /* Pause on hover and on keyboard focus (WCAG 2.2.2). */
+  .carousel:hover .track,
+  .carousel:focus .track,
+  .carousel:focus-within .track {
+    animation-play-state: paused;
+  }
+
+  @keyframes shots-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Vertical padding keeps the card drop shadows inside the overflow-hidden
+     carousel instead of clipping at its edges. */
+  .shot-list {
+    list-style: none;
+    margin: 0;
+    padding: 1.25rem clamp(1.2rem, 2.5vw, 2rem) 3.5rem 0;
+    display: flex;
+    gap: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .app-shot {
+    width: clamp(220px, 23vw, 290px);
+    aspect-ratio: 1320 / 2868;
+    border-radius: clamp(1.6rem, 2.4vw, 2.2rem);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--hairline-soft);
+    box-shadow: var(--shot-shadow);
+    flex: none;
+  }
+
+  .app-shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Theme-matched screen: show the dark capture under the dark theme. */
+  .app-shot .shot-dark {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    .app-shot:has(.shot-dark) .shot-light {
+      display: none;
+    }
+    .app-shot:has(.shot-dark) .shot-dark {
+      display: block;
+    }
+  }
+  :global(:root[data-theme='dark']) .app-shot:has(.shot-dark) .shot-light {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .app-shot:has(.shot-dark) .shot-dark {
+    display: block;
+  }
+  :global(:root[data-theme='light']) .app-shot .shot-light {
+    display: block;
+  }
+  :global(:root[data-theme='light']) .app-shot .shot-dark {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel {
+      overflow-x: auto;
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+
+    /* No animation loop, so the seamless-scroll duplicate would just show every
+       screen twice in the manual scroller. Hide it. */
+    .track .dupe {
+      display: none;
+    }
+  }
+
+  /* ─── Get ──────────────────────────────────────────────────────────── */
+  /* Section padding is symmetric (and the footer sits flush below), so the
+     card floats vertically centered between the carousel band and the footer. */
+  .get-card {
+    background: var(--surface);
+    border-radius: 1.75rem;
+    padding: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 3rem) 0;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .get-card .lead {
+    margin-top: 0.9rem;
+  }
+
+  /* Bloom fills the card center and is deliberately cropped by the card's
+     bottom edge, per the design comp. Kept compact so the card stays short. */
+  .get-bloom {
+    position: relative;
+    width: min(360px, 78%);
+    margin: clamp(0.75rem, 2vw, 1.25rem) auto -14%;
+  }
+
+  .bloom-art {
+    width: 100%;
+    height: auto;
+  }
+
+  .bloom-light {
+    mix-blend-mode: multiply;
+  }
+
+  .bloom-dark {
+    display: none;
+  }
+
+  /* Dedicated white-ink dark cut swaps in; a light-only cut inverts instead. */
+  @media (prefers-color-scheme: dark) {
+    .get-bloom:has(.bloom-dark) .bloom-light {
+      display: none;
+    }
+
+    .get-bloom:has(.bloom-dark) .bloom-dark {
+      display: block;
+    }
+
+    .get-bloom:not(:has(.bloom-dark)) .bloom-light {
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+  }
+
+  :global(:root[data-theme='dark']) .get-bloom:has(.bloom-dark) .bloom-light {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .get-bloom:has(.bloom-dark) .bloom-dark {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .get-bloom:not(:has(.bloom-dark)) .bloom-light {
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
+
+  :global(:root[data-theme='light']) .get-bloom .bloom-light {
+    display: block;
+    filter: none;
+    mix-blend-mode: multiply;
+  }
+
+  :global(:root[data-theme='light']) .get-bloom .bloom-dark {
+    display: none;
+  }
+
+  .get-float {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .get-panel {
+    background: color-mix(in srgb, var(--paper) 80%, transparent);
+    backdrop-filter: blur(10px);
+    border-radius: 1.8rem;
+    padding: 1.35rem clamp(1rem, 2.5vw, 1.7rem);
+    transform: translateY(-6%);
+  }
+
+  /* The CTA bloom is smaller now, so the field is trimmed to match, keeping the
+     panel from overhanging the flower. The hero signup keeps its full width. */
+  .get-panel :global(.signup input) {
+    width: min(11em, 38vw);
+  }
+
+  /* ─── Responsive ───────────────────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .problem-grid,
+    .privacy-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
+      max-width: 34rem;
+    }
+
+    .facts {
+      grid-template-columns: 1fr;
+    }
+
+    .label-card {
+      justify-self: start;
+    }
+
+    .hero-intro {
+      margin-top: -24svh;
+    }
+  }
+
+  /* Static, fully-visible fallbacks: no JS, or reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .hero-blur {
+      filter: none;
+      opacity: 1;
+    }
+
+    :global(html.js) .hero-intro-inner {
+      opacity: 1;
+      transform: none;
+    }
+
+    :global(html.js) .hero-move {
+      transform: none;
+    }
+
+    :global(html.js) .scroll-cue {
+      opacity: 1;
+    }
+  }
+</style>

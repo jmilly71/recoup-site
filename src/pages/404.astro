@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found · Rēcoup" description="That page doesn't exist.">
+  <div class="wrap">
+    <div class="nf">
+      <p class="eyebrow">404</p>
+      <h1>Not in the catalog.</h1>
+      <p class="lead">This page doesn&rsquo;t exist. Maybe it was never enrolled.</p>
+      <p><a class="btn btn-primary" href="/">Back to the home page</a></p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .nf {
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-block: clamp(5rem, 14vw, 9rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: flex-start;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+  }
+</style>

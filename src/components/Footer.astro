@@ -1,0 +1,114 @@
+---
+import { site } from '../config';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="wrap grid">
+    <div class="brand">
+      <p class="wordmark">{site.name}</p>
+      <p class="tagline">{site.tagline}</p>
+    </div>
+    <nav aria-label="Footer">
+      <h2>Site</h2>
+      <a href="/support">Support</a>
+      <a href="/privacy">Privacy Policy</a>
+    </nav>
+    <div>
+      <h2>Contact</h2>
+      <a href={`mailto:${site.supportEmail}?subject=R%C4%93coup`}>Email</a>
+    </div>
+  </div>
+  <div class="wrap small-print">
+    <p>© {year} {site.name}. Rēcoup is a tracking tool, not financial advice.</p>
+    <p>
+      Rēcoup is an independent app and is not affiliated with, endorsed by, or sponsored by
+      American Express, Chase, or any other card issuer. Card and benefit names are trademarks
+      of their respective owners. Apple, iPhone, and App Store are trademarks of Apple Inc.
+    </p>
+  </div>
+</footer>
+
+<style>
+  /* Black in both themes, per the design comps. The section above provides
+     the breathing room, so the footer sits flush. */
+  footer {
+    background: var(--footer-bg);
+    color: var(--footer-ink);
+    padding-block: clamp(3rem, 6vw, 4.5rem) 2.5rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .wordmark {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .tagline {
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    color: var(--footer-muted);
+  }
+
+  h2 {
+    font-size: 0.8125rem;
+    font-weight: 660;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--footer-muted);
+    margin-bottom: 0.9rem;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav a,
+  .grid div a {
+    display: block;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--footer-ink);
+    padding-block: 0.22em;
+    transition: color 140ms ease;
+  }
+
+  .grid a:hover {
+    color: var(--footer-muted);
+  }
+
+  /* Left edge lines up with the wordmark: the block spans the full wrap (a
+     max-width here would center inside the wrap's auto margins) and only the
+     paragraphs are line-length limited. */
+  .small-print {
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+    color: var(--footer-muted);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .small-print p {
+    max-width: 46rem;
+  }
+
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

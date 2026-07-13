@@ -1,0 +1,175 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+
+const supportMailto = `mailto:${site.supportEmail}?subject=R%C4%93coup%20support`;
+const bugMailto =
+  `mailto:${site.supportEmail}?subject=R%C4%93coup%20bug%20report&body=` +
+  encodeURIComponent('What happened:\n\nWhat I expected:\n\niPhone model / iOS version:\n');
+
+const faqs = [
+  {
+    q: 'Does Rēcoup connect to my bank or card account?',
+    a: 'No. There are no logins and no account linking. You just pick your cards from the built-in catalog. Rēcoup never sees your card number, your transactions, or your bank.',
+  },
+  {
+    q: 'Where does my data live?',
+    a: 'In a local SQLite database inside the app’s private storage on your iPhone. There’s no account and no cloud copy. If you delete the app, iOS deletes that data with it. The privacy policy has the full (short) story.',
+  },
+  {
+    q: 'How does Rēcoup know what credits my card has?',
+    a: 'The app ships with a bundled catalog of premium cards and their benefits: each credit’s value and cadence (monthly, quarterly, semiannual, annual). Because the catalog is built in, nothing is looked up over the network; catalog improvements arrive with app updates.',
+  },
+  {
+    q: 'Why doesn’t a benefit count toward my totals?',
+    a: 'Rēcoup uses a per-benefit enrollment model. Memberships you’re enrolled in, like DashPass or Walmart+, count automatically, on autopilot. Benefits you never enrolled in are left out of the math entirely, so your totals reflect how you actually use the card.',
+  },
+  {
+    q: 'What’s a “cardmembership year”?',
+    a: 'Each card is measured against its own year: the twelve months between one annual fee and the next, not the calendar year. What you’ve claimed and what’s still on the table are always shown for the current cardmembership year.',
+  },
+  {
+    q: 'My card or a credit is missing (or wrong). Can you add it?',
+    a: 'Probably! The catalog keeps growing. Email the card and the benefit (a link to the issuer’s benefits page helps) and I’ll take a look.',
+  },
+  {
+    q: 'Reminders aren’t showing up.',
+    a: 'Reminders are local notifications, so iOS is in charge of delivering them. Check Settings → Notifications → Rēcoup on your iPhone and make sure notifications are allowed.',
+  },
+];
+---
+
+<Base
+  title="Support · Rēcoup"
+  description="Get help with Rēcoup: contact, frequently asked questions, and how to report an issue."
+>
+  <div class="wrap">
+    <article class="prose-page">
+      <h1>Support</h1>
+      <p class="lead">
+        Questions, bug reports, a card or credit that&rsquo;s missing from the catalog: email me
+        and I&rsquo;ll get back to you.
+      </p>
+
+      <div class="contact-card">
+        <a class="contact-mail" href={supportMailto}>Email me</a>
+        <p class="muted">
+          Helpful to include: your iPhone model, iOS version, and what you expected to happen. If
+          you&rsquo;re on the TestFlight beta, you can also send feedback, screenshots and all,
+          straight from the TestFlight app.
+        </p>
+      </div>
+
+      <h2>Frequently asked questions</h2>
+      {
+        faqs.map((faq) => (
+          <details>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))
+      }
+
+      <h2>Report an issue</h2>
+      <p>
+        Found a bug? Send a quick report and I&rsquo;ll chase it down. The link below pre-fills
+        the useful bits:
+      </p>
+      <p><a class="btn btn-primary" href={bugMailto}>Email a bug report</a></p>
+
+      <p class="app-id muted">{site.name} for iPhone · {site.bundleId}</p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .contact-card {
+    border: 1px solid var(--hairline);
+    border-radius: 18px;
+    background: var(--surface);
+    padding: 1.8rem 2rem;
+    margin-block: 2.2rem;
+  }
+
+  .contact-mail {
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+    font-weight: 660;
+    letter-spacing: -0.015em;
+    text-decoration-color: var(--hairline);
+    text-underline-offset: 5px;
+  }
+
+  .contact-mail:hover {
+    text-decoration-color: var(--green);
+  }
+
+  .contact-card p {
+    margin: 0.9em 0 0;
+    font-size: 0.95rem;
+  }
+
+  details {
+    border-bottom: 1px solid var(--hairline-soft);
+    interpolate-size: allow-keywords;
+  }
+
+  /* Smooth open/close: the answer panel slides and fades instead of snapping.
+     Browsers without ::details-content support keep the instant toggle. */
+  details::details-content {
+    opacity: 0;
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      content-visibility 280ms allow-discrete,
+      opacity 280ms ease,
+      block-size 280ms ease;
+  }
+
+  details[open]::details-content {
+    opacity: 1;
+    block-size: auto;
+  }
+
+  details:first-of-type {
+    border-top: 1px solid var(--hairline-soft);
+  }
+
+  summary {
+    cursor: pointer;
+    padding: 1.05rem 2rem 1.05rem 0;
+    font-weight: 640;
+    list-style: none;
+    position: relative;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: '+';
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 480;
+    font-size: 1.3rem;
+    color: var(--muted);
+    transition: transform 160ms ease;
+  }
+
+  details[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  details p {
+    margin: 0 0 1.2rem;
+    color: var(--muted);
+    max-width: 40em;
+  }
+
+  .app-id {
+    margin-top: 3.5rem;
+    font-size: 0.83rem;
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+---
+
+<Base
+  title="Privacy Policy · Rēcoup"
+  description="Rēcoup collects nothing. All data stays on your iPhone: no accounts, no servers, no analytics, no third parties."
+>
+  <div class="wrap">
+    <article class="prose-page">
+      <h1>Privacy Policy</h1>
+      <p class="muted effective">
+        Effective {site.privacyEffectiveDate} · Applies to the {site.name} iOS app ({site.bundleId})
+      </p>
+
+      <h2>What Rēcoup stores, and where</h2>
+      <p>
+        Rēcoup stores the things you put into it: the cards you add, which benefits you&rsquo;re
+        enrolled in, the credits you&rsquo;ve claimed, and your settings. All of it lives in a
+        local SQLite database inside the app&rsquo;s private storage on your iPhone. It is never
+        transmitted anywhere.
+      </p>
+
+      <h2>What leaves your device</h2>
+      <p>
+        Nothing. Rēcoup has no backend and no account system. The app doesn&rsquo;t send your
+        data to us (there is no &ldquo;us&rdquo; server-side) or to anyone else. The card and
+        benefit catalog is bundled inside the app, so checking a card&rsquo;s credits never
+        triggers a lookup over the network. Everything the app shows you is computed on your
+        device.
+      </p>
+
+      <h2>Analytics, tracking, and third parties</h2>
+      <p>
+        Rēcoup contains no analytics, no advertising SDKs, no crash-reporting frameworks, and no
+        third-party code that phones home. We don&rsquo;t buy, sell, or share personal data. We
+        never have it in the first place. Rēcoup&rsquo;s App Store privacy label is
+        <strong>&ldquo;Data Not Collected&rdquo;</strong> because that is literally the design.
+      </p>
+
+      <h2>Notifications</h2>
+      <p>
+        If you turn on reminders, they are scheduled as local notifications by iOS on your
+        device. No push server is involved, and reminder contents never leave your iPhone.
+      </p>
+
+      <h2>Backups</h2>
+      <p>
+        Your Rēcoup data is part of the app&rsquo;s storage, so it may be included in the device
+        backups you control, iCloud Backup or a computer backup, like any other app&rsquo;s
+        data. Those backups are yours, handled by Apple&rsquo;s systems under Apple&rsquo;s
+        terms; Rēcoup has no access to them. Deleting the app deletes its data from your device.
+      </p>
+
+      <h2>Apple</h2>
+      <p>
+        Standard platform mechanics still apply: Apple processes your App Store download, and if
+        you have opted in to &ldquo;Share with App Developers&rdquo; in iOS settings, Apple may
+        share aggregated, anonymized crash reports with the developer. That sharing is between
+        you and Apple, and it does not include the data you&rsquo;ve entered in Rēcoup.
+      </p>
+
+      <h2>This website</h2>
+      <p>
+        This site is static. It sets no cookies, runs no analytics scripts, and embeds no
+        third-party trackers, which is also why there&rsquo;s no cookie banner. Our hosting
+        provider processes requests in order to serve pages, but we don&rsquo;t track your visit.
+      </p>
+      <p>
+        The one exception is the launch-updates signup: if you enter your email address to hear
+        when Rēcoup ships, that address is sent to Buttondown, the email service that delivers
+        the update, and is used for nothing else. It&rsquo;s the only form on the site, it&rsquo;s
+        entirely optional, and the app itself never asks for your email.
+      </p>
+
+      <h2>Children</h2>
+      <p>Rēcoup doesn&rsquo;t collect personal information from anyone, including children.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        If Rēcoup ever changes in a way that affects this policy, we&rsquo;ll update this page
+        and the effective date above. The bar is simple: if the app ever started collecting
+        anything, this policy would say so plainly, before it happened.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about privacy?
+        <a href={`mailto:${site.supportEmail}?subject=R%C4%93coup%20privacy`}>Email me</a>.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .effective {
+    font-size: 0.9rem;
+    margin-bottom: 2.4em;
+  }
+</style>

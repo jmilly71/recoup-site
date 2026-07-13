@@ -1,0 +1,97 @@
+---
+/**
+ * iPhone-style frame around a screenshot, with an optional subtle 3D tilt.
+ * Screenshots are expected at roughly 1320×2868 (6.9" capture size).
+ * Pass `srcDark` to show a dark-mode capture under the dark theme.
+ */
+interface Props {
+  src: string;
+  srcSet?: string | null;
+  srcDark?: string | null;
+  srcDarkSet?: string | null;
+  alt: string;
+  tilt?: 'left' | 'right' | 'none';
+  loading?: 'eager' | 'lazy';
+}
+const { src, srcSet, srcDark, srcDarkSet, alt, tilt = 'none', loading = 'lazy' } = Astro.props;
+---
+
+<div class:list={['scene', `tilt-${tilt}`]}>
+  <figure class="device">
+    <img class="frame-img frame-light" {src} srcset={srcSet ?? undefined} {alt} {loading} width="1320" height="2868" decoding="async" />
+    {srcDark && <img class="frame-img frame-dark" src={srcDark} srcset={srcDarkSet ?? undefined} alt="" {loading} width="1320" height="2868" decoding="async" />}
+  </figure>
+</div>
+
+<style>
+  .scene {
+    perspective: 1600px;
+  }
+
+  .device {
+    margin: 0;
+    aspect-ratio: 1320 / 2868;
+    padding: 3.1%;
+    background: var(--frame);
+    border: 1px solid var(--frame-edge);
+    border-radius: 15.5% / 7.15%;
+    box-shadow: var(--device-shadow);
+    position: relative;
+    transition: transform 400ms ease;
+  }
+
+  .device img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12.4% / 5.7%;
+    background: var(--paper);
+  }
+
+  /* Theme-matched capture: dark cut swaps in when present. */
+  .frame-dark {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    .device:has(.frame-dark) .frame-light {
+      display: none;
+    }
+    .device:has(.frame-dark) .frame-dark {
+      display: block;
+    }
+  }
+  :global(:root[data-theme='dark']) .device:has(.frame-dark) .frame-light {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .device:has(.frame-dark) .frame-dark {
+    display: block;
+  }
+  :global(:root[data-theme='light']) .device .frame-light {
+    display: block;
+  }
+  :global(:root[data-theme='light']) .device .frame-dark {
+    display: none;
+  }
+
+  /* No drawn dynamic island: the real captures include it. */
+
+  .tilt-left .device {
+    transform: rotateY(9deg) rotateX(1.6deg) rotateZ(-0.6deg);
+  }
+
+  .tilt-right .device {
+    transform: rotateY(-9deg) rotateX(1.6deg) rotateZ(0.6deg);
+  }
+
+  .scene:hover .device {
+    transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tilt-left .device,
+    .tilt-right .device,
+    .scene:hover .device {
+      transform: none;
+    }
+  }
+</style>
