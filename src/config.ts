@@ -11,8 +11,14 @@ export const site = {
   supportEmail: 'jmilly@me.com',
   bundleId: 'com.jmilly.recoup',
 
-  /** TODO: set once the app is live, e.g. 'https://apps.apple.com/app/id0000000000' */
-  appStoreUrl: null as string | null,
+  /**
+   * The App Store link. Live as of 2026-08-20. The id-only form is deliberate:
+   * it returns 200 and redirects to the slug URL, survives any future slug
+   * change, and avoids percent-encoding the macron in "Rēcoup". One of two
+   * launch gates; the badge shows only when this is set AND `launchState` is
+   * 'launched' (see the `isLaunched` guard).
+   */
+  appStoreUrl: 'https://apps.apple.com/us/app/id6789943575' as string | null,
 
   /**
    * POST endpoint for the email signup (Buttondown, same provider as the
@@ -33,15 +39,22 @@ export const site = {
 } as const;
 
 /**
- * The single launch switch. Every call to action (header pill, hero, closing
- * card) reads this.
+ * The launch switch. Call sites read the derived `isLaunched` below, never
+ * this value directly.
  * - 'prelaunch': the app is in TestFlight, so CTAs capture emails.
- * - 'launched': set once the App Store listing is live AND `site.appStoreUrl`
- *   is filled in, and every CTA swaps to the App Store badge automatically.
+ * - 'launched': every CTA swaps to the App Store badge, but only once
+ *   `site.appStoreUrl` is also set (see the `isLaunched` guard).
+ *
+ * Launched 2026-08-20: both gates are set (this is 'launched' and
+ * `site.appStoreUrl` holds the live link), so every CTA now shows the App Store
+ * badge instead of the email signup.
  */
-export const launchState: 'prelaunch' | 'launched' = 'prelaunch';
+export const launchState: 'prelaunch' | 'launched' = 'launched';
 
-/** True only when we're launched and actually have a store URL to point at. */
+/**
+ * The one gate the whole site reads. True only when we're launched AND have a
+ * real store URL, so an empty `appStoreUrl` can never render a dead button.
+ */
 export const isLaunched = launchState === 'launched' && Boolean(site.appStoreUrl);
 
 /**
@@ -58,9 +71,11 @@ export const launchCards = [
 
 /**
  * App screens for the "See where every card stands" carousel, looping
- * right-to-left. The captures (1320×2868 PNG) live in `public/screens/`.
- * Screens show demo data ("Alex", +$244), so alt text stays illustrative,
- * never testimonial.
+ * right-to-left. Eight frameless raw captures (1320×2868 PNG) in numbered slide
+ * order, sourced from design/site/screens (NOT design/site/raw-v2, the framed
+ * App Store set). They live in `public/screens/`; the site supplies its own
+ * rounded card framing. Screens show demo data ("Alex", +$244), so alt text
+ * stays illustrative, never testimonial.
  */
 export const realScreens = [
   { file: '01-welcome.png', alt: 'Rēcoup welcome screen: an engraved tulip above the Rēcoup wordmark and a Get started button' },
@@ -71,8 +86,6 @@ export const realScreens = [
   { file: '06-by-benefit-grid.png', alt: 'Month-by-month grid of credits by benefit' },
   { file: '07-about-flowers.png', alt: 'The brand story screen pairing each card with an engraved bloom' },
   { file: '08-onboarding.png', alt: 'Onboarding: which cards do you carry, showing the five launch cards' },
-  { file: '09-your-cards.png', alt: 'Manage your cards, each shown with its own engraving' },
-  { file: '10-claim-drawer.png', alt: 'The claim bottom sheet for marking a credit used' },
 ] as const;
 
 /**

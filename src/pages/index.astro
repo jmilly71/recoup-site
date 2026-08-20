@@ -238,7 +238,10 @@ const steps = [
             <div class="get-panel">
               {
                 isLaunched ? (
-                  <AppStoreBadge url={site.appStoreUrl!} />
+                  <div class="get-badge">
+                    <AppStoreBadge url={site.appStoreUrl!} />
+                    <p class="get-badge-note muted">For iPhone, on the U.S. App Store.</p>
+                  </div>
                 ) : (
                   <EmailSignup caption="Now in beta on TestFlight." />
                 )
@@ -878,6 +881,20 @@ const steps = [
      panel from overhanging the flower. The hero signup keeps its full width. */
   .get-panel :global(.signup input) {
     width: min(11em, 38vw);
+  }
+
+  /* Launched CTA: the badge with a one-line availability note, so a visitor
+     outside the United States is not sent to a dead App Store page. */
+  .get-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .get-badge-note {
+    margin: 0;
+    font-size: 0.9rem;
   }
 
   /* ─── Responsive ───────────────────────────────────────────────────── */
