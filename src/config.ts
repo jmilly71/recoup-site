@@ -63,7 +63,7 @@ export const isLaunched = launchState === 'launched' && Boolean(site.appStoreUrl
  */
 export const launchCards = [
   { issuer: 'American Express', name: 'The Platinum Card' },
-  { issuer: 'American Express', name: 'American Express Gold' },
+  { issuer: 'American Express', name: 'Gold Card' },
   { issuer: 'American Express', name: 'Delta SkyMiles Reserve' },
   { issuer: 'Chase', name: 'Sapphire Reserve' },
   { issuer: 'Chase', name: 'Sapphire Preferred' },
@@ -74,14 +74,15 @@ export const launchCards = [
  * right-to-left. Eight frameless raw captures (1320×2868 PNG) in numbered slide
  * order, sourced from design/site/screens (NOT design/site/raw-v2, the framed
  * App Store set). They live in `public/screens/`; the site supplies its own
- * rounded card framing. Screens show demo data ("Alex", +$244), so alt text
- * stays illustrative, never testimonial.
+ * rounded card framing. Captured from 1.0.1 build 26 on 2026-08-26. Screens
+ * show demo data (August, net +$186), so alt text stays illustrative, never
+ * testimonial.
  */
 export const realScreens = [
   { file: '01-welcome.png', alt: 'Rēcoup welcome screen: an engraved tulip above the Rēcoup wordmark and a Get started button' },
-  { file: '02-today-hero.png', alt: 'Rēcoup dashboard with demo data: July up $244, fees covered' },
+  { file: '02-today-hero.png', alt: 'Rēcoup dashboard with demo data: August up $186, fees covered' },
   { file: '03-cards-all.png', alt: 'All five launch cards, each with its own engraving and per-card net' },
-  { file: '04-card-detail-enrollment.png', alt: 'Card detail showing per-benefit enrollment: not enrolled, enrolled, and autopilot, with a service picker' },
+  { file: '04-card-detail-enrollment.png', alt: 'American Express Platinum card detail with per-benefit enrollment: not enrolled, enrolled, and autopilot' },
   { file: '05-year-chart.png', alt: 'Year view with the recoup curve crossing the annual fee line' },
   { file: '06-by-benefit-grid.png', alt: 'Month-by-month grid of credits by benefit' },
   { file: '07-about-flowers.png', alt: 'The brand story screen pairing each card with an engraved bloom' },
@@ -89,14 +90,13 @@ export const realScreens = [
 ] as const;
 
 /**
- * The screen shown inside the hero iPhone: the Today dashboard. Real captures
- * live at /screens/hero-month.png and /screens/dark/hero-month.png (the file
- * name is historical; the capture is the dashboard).
+ * The screen shown inside the hero iPhone: the Today dashboard, the same
+ * capture as 02-today-hero (the file name is historical). Native 1320x2868,
+ * which more than covers the hero's rendered size, so there is no separate 2x
+ * asset.
  */
 export const heroScreen = {
   src: '/screens/hero-month.png',
-  src2x: '/screens/hero-month-light-2x.png',
   srcDark: '/screens/dark/hero-month.png',
-  srcDark2x: '/screens/dark/hero-month-dark-2x.png',
-  alt: 'Rēcoup dashboard with demo data: July recouped $244, fees covered',
+  alt: 'Rēcoup dashboard with demo data: August recouped $186, fees covered',
 } as const;

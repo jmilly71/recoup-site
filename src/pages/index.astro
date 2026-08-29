@@ -27,13 +27,6 @@ const screens = realScreens
   }));
 
 const heroDark = existsSync(`public${heroScreen.srcDark}`) ? heroScreen.srcDark : null;
-const heroSet = existsSync(`public${heroScreen.src2x}`)
-  ? `${heroScreen.src} 1x, ${heroScreen.src2x} 2x`
-  : null;
-const heroDarkSet =
-  heroDark && existsSync(`public${heroScreen.srcDark2x}`)
-    ? `${heroScreen.srcDark} 1x, ${heroScreen.srcDark2x} 2x`
-    : null;
 
 const steps = [
   {
@@ -63,9 +56,7 @@ const steps = [
             <div class="hero-rise">
               <DeviceFrame
                 src={heroScreen.src}
-                srcSet={heroSet}
                 srcDark={heroDark}
-                srcDarkSet={heroDarkSet}
                 alt={heroScreen.alt}
                 tilt="none"
                 loading="eager"
@@ -108,7 +99,7 @@ const steps = [
         </p>
         <p class="chips-label eyebrow" data-reveal>The launch lineup</p>
         <ul class="chips" role="list">
-          {launchCards.map((card) => <li data-reveal>{card.name.includes('Sapphire') ? `${card.issuer} ${card.name}` : card.name}</li>)}
+          {launchCards.map((card) => <li data-reveal>{card.name.startsWith('The') || card.name.startsWith('Delta') ? card.name : `${card.issuer} ${card.name}`}</li>)}
         </ul>
       </div>
     </div>

@@ -37,14 +37,19 @@ above Apple's 40px minimum with more than quarter-height clear space around it.
 
 ## Still to do
 
-- Re-shoot the app screenshots. The current shots are from 2026-07-26 and show
-  the pre-build-24 UI (smaller text, lighter greys) than the app people now
-  download. Affected: the 8 carousel slides in `public/screens/` (light) and
-  `public/screens/dark/` (dark), plus the hero image. Recapture on the Mac (the
-  capture tools live under `design/appstore/tools/`), then drop the new PNGs in
-  under the same filenames. Tell me if any screen's content changed and I will
-  update the alt text in `config.ts`. This is now the most visible gap, since
-  the site is the front door for the launch.
+Nothing is open right now.
+
+- DONE 2026-08-29: screenshots re-shot. All 17 assets (8 light, 8 dark, dark
+  hero; the light hero is the same capture as the light Today slide) now come
+  from 1.0.1 build 26, released 2026-08-26, pulled from the app repo
+  (`jmilly71/recoup`, commit 6857077, `design/site/screens` and
+  `screens-dark`). Alt text and `public/screens/MANIFEST.md` updated to match
+  (August, net +$186, Amex Platinum on slide 04). The retired 09/10 files and
+  the stale hero 2x assets were deleted; the hero serves the native 1320x2868
+  capture, which covers its rendered size.
+- Shelf life to watch: the captures say "August" and "4 days left". Recapture
+  when that reads stale or when the app's type or colors change again (notes in
+  the app repo at `design/site/README-screens.md`).
 
 ## Already verified on 2026-08-20 (no action needed)
 
