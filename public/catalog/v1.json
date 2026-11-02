@@ -1,6 +1,6 @@
 {
-  "version": 19,
-  "changelog": "Platinum hotel credit now covers Airbnb Luxe stays.",
+  "version": 20,
+  "changelog": "Benefits link to where you use them: Uber, Resy, DoorDash and more.",
   "cards": [
     {
       "id": "amex-platinum",
@@ -71,7 +71,8 @@
       ],
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Uber Cash added to your Uber account each month: $15, and $35 in December. Rides and Uber Eats orders in the US. Add the Platinum to your Uber wallet first."
+      "description": "Uber Cash added to your Uber account each month: $15, and $35 in December. Rides and Uber Eats orders in the US. Add the Platinum to your Uber wallet first.",
+      "url": "https://www.uber.com/ride"
     },
     {
       "id": "plat-uber-one",
@@ -129,7 +130,8 @@
       "value": 300,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $300 back each half on prepaid Fine Hotels + Resorts, Hotel Collection, or Airbnb Luxe stays booked through Amex Travel. Hotel Collection and Airbnb Luxe need two nights, and Fine Hotels + Resorts will too from January 2027."
+      "description": "Up to $300 back each half on prepaid Fine Hotels + Resorts, Hotel Collection, or Airbnb Luxe stays booked through Amex Travel. Hotel Collection and Airbnb Luxe need two nights, and Fine Hotels + Resorts will too from January 2027.",
+      "url": "https://www.americanexpress.com/en-us/travel/benefits/lodging-credit/"
     },
     {
       "id": "plat-resy",
@@ -140,7 +142,8 @@
       "value": 100,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $100 back each quarter at US Resy restaurants. Dine in or takeout, paid with the Platinum."
+      "description": "Up to $100 back each quarter at US Resy restaurants. Dine in or takeout, paid with the Platinum.",
+      "url": "https://resy.com/"
     },
     {
       "id": "plat-lululemon",
@@ -151,7 +154,8 @@
       "value": 75,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $75 back each quarter at US Lululemon stores and lululemon.com. Outlets don't count."
+      "description": "Up to $75 back each quarter at US Lululemon stores and lululemon.com. Outlets don't count.",
+      "url": "https://shop.lululemon.com/"
     },
     {
       "id": "plat-saks",
@@ -186,7 +190,8 @@
       "value": 219,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Covers a CLEAR Plus membership, up to $219 a year. Faster security lines at 50+ airports."
+      "description": "Covers a CLEAR Plus membership, up to $219 a year. Faster security lines at 50+ airports.",
+      "url": "https://www.clearme.com/"
     },
     {
       "id": "plat-oura",
@@ -197,7 +202,8 @@
       "value": 200,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $200 back on Oura Ring hardware bought at ouraring.com. Once a year."
+      "description": "Up to $200 back on Oura Ring hardware bought at ouraring.com. Once a year.",
+      "url": "https://ouraring.com/"
     },
     {
       "id": "plat-equinox",
@@ -208,7 +214,8 @@
       "value": 300,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $300 back each year on Equinox club memberships or the Equinox+ app."
+      "description": "Up to $300 back each year on Equinox club memberships or the Equinox+ app.",
+      "url": "https://www.equinox.com/"
     },
     {
       "id": "plat-global-entry",
@@ -220,7 +227,8 @@
       "everyNYears": 4,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Covers the Global Entry application fee ($120 every 4 years) or TSA PreCheck ($85 every 4.5). Global Entry includes PreCheck, so most pick that."
+      "description": "Covers the Global Entry application fee ($120 every 4 years) or TSA PreCheck ($85 every 4.5). Global Entry includes PreCheck, so most pick that.",
+      "url": "https://ttp.dhs.gov/"
     },
     {
       "id": "plat-lounge",
@@ -243,7 +251,8 @@
       "value": 10,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "$10 in Uber Cash each month for US rides and Uber Eats. Add the Gold to your Uber wallet first."
+      "description": "$10 in Uber Cash each month for US rides and Uber Eats. Add the Gold to your Uber wallet first.",
+      "url": "https://www.uber.com/ride"
     },
     {
       "id": "gold-dining",
@@ -265,7 +274,8 @@
       "value": 50,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $50 back each half at US Resy restaurants, $100 a year."
+      "description": "Up to $50 back each half at US Resy restaurants, $100 a year.",
+      "url": "https://resy.com/"
     },
     {
       "id": "gold-dunkin",
@@ -276,7 +286,8 @@
       "value": 7,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $7 back each month at US Dunkin' locations. Coffee money."
+      "description": "Up to $7 back each month at US Dunkin' locations. Coffee money.",
+      "url": "https://www.dunkindonuts.com/"
     },
     {
       "id": "delta-resy",
@@ -287,7 +298,8 @@
       "value": 20,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Statement credit for eligible Resy restaurant purchases in the US, up to $20 each month. Pay with the Delta Reserve. Dining in or takeout booked via Resy."
+      "description": "Statement credit for eligible Resy restaurant purchases in the US, up to $20 each month. Pay with the Delta Reserve. Dining in or takeout booked via Resy.",
+      "url": "https://resy.com/"
     },
     {
       "id": "delta-rideshare",
@@ -310,7 +322,8 @@
       "pool": true,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $200 back each year on prepaid hotels or vacation rentals booked through Delta Stays on delta.com."
+      "description": "Up to $200 back each year on prepaid hotels or vacation rentals booked through Delta Stays on delta.com.",
+      "url": "https://www.delta.com/us/en/delta-stays"
     },
     {
       "id": "delta-companion",
@@ -333,7 +346,8 @@
       "everyNYears": 4,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Covers the Global Entry application fee ($120 every 4 years) or TSA PreCheck ($85 every 4.5). Global Entry includes PreCheck, so most pick that."
+      "description": "Covers the Global Entry application fee ($120 every 4 years) or TSA PreCheck ($85 every 4.5). Global Entry includes PreCheck, so most pick that.",
+      "url": "https://ttp.dhs.gov/"
     },
     {
       "id": "delta-lounge",
@@ -369,7 +383,8 @@
       "perUseCap": 250,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Two $250 credits on prepaid stays of two nights or more booked through The Edit by Chase Travel. Both can be used anytime in the year."
+      "description": "Two $250 credits on prepaid stays of two nights or more booked through The Edit by Chase Travel. Both can be used anytime in the year.",
+      "url": "https://www.chase.com/travel/the-edit"
     },
     {
       "id": "csr-select-hotels",
@@ -381,7 +396,8 @@
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
       "effectiveUntil": "2026-12-31",
-      "description": "One-time for 2026: $250 back on a prepaid stay of two nights or more at select Chase Travel partners like IHG, Omni, Montage, and Pendry."
+      "description": "One-time for 2026: $250 back on a prepaid stay of two nights or more at select Chase Travel partners like IHG, Omni, Montage, and Pendry.",
+      "url": "https://www.chase.com/travel"
     },
     {
       "id": "csr-dining",
@@ -392,7 +408,8 @@
       "value": 150,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $150 back each half at Sapphire Reserve Exclusive Tables restaurants."
+      "description": "Up to $150 back each half at Sapphire Reserve Exclusive Tables restaurants.",
+      "url": "https://www.opentable.com/sapphire-reserve-exclusive-tables"
     },
     {
       "id": "csr-stubhub",
@@ -403,7 +420,8 @@
       "value": 150,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $150 back each half on StubHub or viagogo tickets. Activate first."
+      "description": "Up to $150 back each half on StubHub or viagogo tickets. Activate first.",
+      "url": "https://www.stubhub.com/"
     },
     {
       "id": "csr-doordash",
@@ -426,7 +444,8 @@
       "value": 5,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "$5 off one restaurant order each month. It applies to a single order, and any unused part does not carry. Needs the complimentary DashPass activated."
+      "description": "$5 off one restaurant order each month. It applies to a single order, and any unused part does not carry. Needs the complimentary DashPass activated.",
+      "url": "https://www.doordash.com/"
     },
     {
       "id": "csr-doordash-grocery",
@@ -439,7 +458,8 @@
       "perUseCap": 10,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Two $10 off promos each month on non-restaurant orders: groceries, convenience, and retail like DashMart, 7-Eleven, or CVS. Each is a separate order. Needs the complimentary DashPass activated."
+      "description": "Two $10 off promos each month on non-restaurant orders: groceries, convenience, and retail like DashMart, 7-Eleven, or CVS. Each is a separate order. Needs the complimentary DashPass activated.",
+      "url": "https://www.doordash.com/"
     },
     {
       "id": "csr-dashpass",
@@ -462,7 +482,8 @@
       "value": 10,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $10 back each month on Lyft rides. Link the card in the Lyft app."
+      "description": "Up to $10 back each month on Lyft rides. Link the card in the Lyft app.",
+      "url": "https://www.lyft.com/ride"
     },
     {
       "id": "csr-peloton",
@@ -473,7 +494,8 @@
       "value": 10,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $10 back each month on Peloton memberships."
+      "description": "Up to $10 back each month on Peloton memberships.",
+      "url": "https://www.onepeloton.com/"
     },
     {
       "id": "csr-apple",
@@ -497,7 +519,8 @@
       "everyNYears": 4,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Covers the Global Entry application fee ($120 every 4 years) or TSA PreCheck ($85 every 4.5). Global Entry includes PreCheck, so most pick that."
+      "description": "Covers the Global Entry application fee ($120 every 4 years) or TSA PreCheck ($85 every 4.5). Global Entry includes PreCheck, so most pick that.",
+      "url": "https://ttp.dhs.gov/"
     },
     {
       "id": "csr-lounge",
@@ -520,7 +543,8 @@
       "value": 100,
       "enrollmentRequired": false,
       "effectiveFrom": "2026-01-01",
-      "description": "Up to $100 back each account year on hotel stays booked through Chase Travel."
+      "description": "Up to $100 back each account year on hotel stays booked through Chase Travel.",
+      "url": "https://www.chase.com/travel"
     },
     {
       "id": "csp-doordash",
@@ -531,7 +555,8 @@
       "value": 10,
       "enrollmentRequired": true,
       "effectiveFrom": "2026-01-01",
-      "description": "$10 off one non-restaurant DoorDash order each month: grocery, convenience, retail. Needs DashPass activated."
+      "description": "$10 off one non-restaurant DoorDash order each month: grocery, convenience, retail. Needs DashPass activated.",
+      "url": "https://www.doordash.com/"
     },
     {
       "id": "csp-dashpass",
