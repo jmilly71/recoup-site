@@ -24,11 +24,21 @@ import { site } from '../config';
 
       <h2>What leaves your device</h2>
       <p>
-        Nothing. Rēcoup has no backend and no account system. The app doesn&rsquo;t send your
-        data to us (there is no &ldquo;us&rdquo; server-side) or to anyone else. The card and
-        benefit catalog is bundled inside the app, so checking a card&rsquo;s credits never
-        triggers a lookup over the network. Everything the app shows you is computed on your
-        device.
+        None of your data. Rēcoup has no backend and no account system. The app doesn&rsquo;t
+        send your data to us (there is no &ldquo;us&rdquo; server-side) or to anyone else.
+        Everything the app shows you is computed on your device.
+      </p>
+      <p>
+        The app makes one kind of network request: about once a day it downloads the public card
+        and benefit catalog from recoupbenefits.app, so values stay current when an issuer changes
+        a credit. It&rsquo;s a plain file download, the same file for everyone, and it carries
+        nothing about you, your cards, or your credits. Like any website, our host (Cloudflare)
+        sees the IP address a request comes from; Rēcoup doesn&rsquo;t log or keep it.
+      </p>
+      <p>
+        If you tap &ldquo;Ask for it&rdquo; to request a card the app doesn&rsquo;t cover yet, Rēcoup
+        opens a draft in your Mail app. Nothing is sent unless you send it yourself, and then
+        it&rsquo;s an ordinary email to us.
       </p>
 
       <h2>Analytics, tracking, and third parties</h2>

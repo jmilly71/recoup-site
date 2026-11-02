@@ -35,7 +35,7 @@ export const site = {
    */
   emailSignupTag: 'recoup' as string | null,
 
-  privacyEffectiveDate: 'July 12, 2026',
+  privacyEffectiveDate: 'November 1, 2026',
 } as const;
 
 /**
