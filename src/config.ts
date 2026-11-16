@@ -74,19 +74,19 @@ export const launchCards = [
  * right-to-left. Eight frameless raw captures (1320×2868 PNG) in numbered slide
  * order, sourced from design/site/screens (NOT design/site/raw-v2, the framed
  * App Store set). They live in `public/screens/`; the site supplies its own
- * rounded card framing. Captured from 1.0.1 build 26 on 2026-08-26. Screens
- * show demo data (August, net +$186), so alt text stays illustrative, never
+ * rounded card framing. Captured from 1.0.4 build 30 on 2026-11-16. Screens
+ * show demo data (November, net +$396), so alt text stays illustrative, never
  * testimonial.
  */
 export const realScreens = [
   { file: '01-welcome.png', alt: 'Rēcoup welcome screen: an engraved tulip above the Rēcoup wordmark and a Get started button' },
-  { file: '02-today-hero.png', alt: 'Rēcoup dashboard with demo data: August up $186, fees covered' },
+  { file: '02-today-hero.png', alt: 'Rēcoup dashboard with demo data: November up $396, fees covered' },
   { file: '03-cards-all.png', alt: 'All five launch cards, each with its own engraving and per-card net' },
-  { file: '04-card-detail-enrollment.png', alt: 'American Express Platinum card detail with per-benefit enrollment: not enrolled, enrolled, and autopilot' },
+  { file: '04-card-detail-enrollment.png', alt: 'American Express Platinum card detail: a credit opened to show where to use it, and per-benefit enrollment' },
   { file: '05-year-chart.png', alt: 'Year view with the recoup curve crossing the annual fee line' },
   { file: '06-by-benefit-grid.png', alt: 'Month-by-month grid of credits by benefit' },
   { file: '07-about-flowers.png', alt: 'The brand story screen pairing each card with an engraved bloom' },
-  { file: '08-onboarding.png', alt: 'Onboarding: which cards do you carry, showing the five launch cards' },
+  { file: '08-onboarding.png', alt: 'Onboarding: which cards do you carry, showing the five launch cards and a link to ask for a missing one' },
 ] as const;
 
 /**
@@ -98,5 +98,5 @@ export const realScreens = [
 export const heroScreen = {
   src: '/screens/hero-month.png',
   srcDark: '/screens/dark/hero-month.png',
-  alt: 'Rēcoup dashboard with demo data: August recouped $186, fees covered',
+  alt: 'Rēcoup dashboard with demo data: November up $396, fees covered',
 } as const;
